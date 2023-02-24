@@ -7,6 +7,10 @@ const ContactsSchema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(10, 'Too Long!')
     .required('Required'),
+  number: Yup.number()
+    // .min(5, 'Too Short!')
+    // .max(10, 'Too Long!')
+    .required('Required'),
 });
 
 export const FormContacts = ({ onSave }) => {
@@ -14,6 +18,7 @@ export const FormContacts = ({ onSave }) => {
     <Formik
       initialValues={{
         name: '',
+        number: '',
       }}
       validationSchema={ContactsSchema}
       onSubmit={(values, actions) => {
@@ -35,8 +40,21 @@ export const FormContacts = ({ onSave }) => {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
-          <ErrorMessage name="name" />
         </label>
+        <ErrorMessage name="name" />
+
+        <label>
+          Number
+          <Field
+            type="tel"
+            name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
+        </label>
+        <ErrorMessage name="number" />
+
         <button type="submit">Add contact</button>
       </Form>
     </Formik>

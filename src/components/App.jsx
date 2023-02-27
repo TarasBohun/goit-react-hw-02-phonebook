@@ -2,6 +2,8 @@ import { Component } from 'react';
 import { FormContacts } from './FormContacts';
 import { Contacts } from './Contacts';
 import { Filter } from './Filter';
+
+import { GlobalStyle } from './GlobalStyles';
 import { Container } from './Container';
 export class App extends Component {
   state = {
@@ -60,6 +62,7 @@ export class App extends Component {
 
     return (
       <Container>
+        <GlobalStyle />
         <h1>Phonebook</h1>
         <FormContacts onSave={this.addContact} />
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
@@ -5,11 +6,11 @@ import { nanoid } from 'nanoid';
 const ContactsSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, 'Too Short!')
-    .max(10, 'Too Long!')
+    .max(20, 'Too Long!')
     .required('Required'),
   number: Yup.number()
-    // .min(5, 'Too Short!')
-    // .max(10, 'Too Long!')
+    // .min(6, 'Too Short!')
+    // .max(20, 'Too Long!')
     .required('Required'),
 });
 
@@ -22,7 +23,6 @@ export const FormContacts = ({ onSave }) => {
       }}
       validationSchema={ContactsSchema}
       onSubmit={(values, actions) => {
-        // console.log(values);
         onSave({
           ...values,
           id: nanoid(),
@@ -40,8 +40,8 @@ export const FormContacts = ({ onSave }) => {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
+          <ErrorMessage name="name" />
         </label>
-        <ErrorMessage name="name" />
 
         <label>
           Number
@@ -52,11 +52,15 @@ export const FormContacts = ({ onSave }) => {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
+          <ErrorMessage name="number" />
         </label>
-        <ErrorMessage name="number" />
 
         <button type="submit">Add contact</button>
       </Form>
     </Formik>
   );
+};
+
+FormContacts.propType = {
+  onSave: PropTypes.func.isRequired,
 };
